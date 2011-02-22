@@ -13,7 +13,12 @@ package nl.maes.bollenweddingapp;
 
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import org.apache.commons.io.monitor.FileAlterationMonitor;
+import org.apache.commons.io.monitor.FileAlterationObserver;
+
 
 /**
  *
@@ -27,6 +32,8 @@ public class MainFrame extends javax.swing.JFrame {
         BackgroundPanel bPanel = new BackgroundPanel(new ImageIcon("images/background.png").getImage());
         setBounds(0, 0, bPanel.getWidth(), bPanel.getHeight());
         DrawJPanel dPanel = new DrawJPanel();
+        dPanel.setVisible(true);
+        bPanel.add(dPanel);
 
         //bPanel.add(dPanel);
 
@@ -37,6 +44,17 @@ public class MainFrame extends javax.swing.JFrame {
         
         bPanel.setVisible(true);
         getContentPane().add(bPanel);
+
+        FileAlterationObserver observer = new FileAlterationObserver("C:\\pictures");
+        observer.addListener(new PictureListener());
+        FileAlterationMonitor monitor = new FileAlterationMonitor(1, observer);
+        try {
+            monitor.start();
+        } catch (Exception ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
         
     }
 
@@ -52,6 +70,7 @@ public class MainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setResizable(false);
+        setUndecorated(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

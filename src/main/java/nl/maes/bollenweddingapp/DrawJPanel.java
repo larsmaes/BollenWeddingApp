@@ -40,6 +40,17 @@ public class DrawJPanel extends javax.swing.JPanel implements MouseListener, Mou
     /** Creates new form DrawJPanel */
     public DrawJPanel() {
         initComponents();
+        int drawpanelx = Integer.parseInt(ApplicationProperties.getProperties().getProperty("drawpanelx"));
+        int drawpanely = Integer.parseInt(ApplicationProperties.getProperties().getProperty("drawpanely"));
+        int drawpanelwidth = Integer.parseInt(ApplicationProperties.getProperties().getProperty("drawpanelwidth"));
+        int drawpanelheight = Integer.parseInt(ApplicationProperties.getProperties().getProperty("drawpanelheight"));
+        //Dimension size = new Dimension(drawpanelwidth,drawpanelheight);
+        //setPreferredSize(size);
+        //setMinimumSize(size);
+        //setMaximumSize(size);
+        //setSize(size);
+        setBounds(drawpanelx, drawpanely, drawpanelwidth, drawpanelheight);
+        setLayout(null);
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
     }
